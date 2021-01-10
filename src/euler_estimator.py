@@ -1,5 +1,5 @@
-# import matplotlib.pyplot as plt
-# plt.style.use('bmh')
+import matplotlib.pyplot as plt
+plt.style.use('bmh')
 
 class EulerEstimator():
 
@@ -12,7 +12,7 @@ class EulerEstimator():
 
     def step_forward(self, point, step_size):
         new_x = point[0] + step_size
-        new_y = {key:point[1][key] + step_size*value for key, value in self.calc_derivative_at_point(point).items()}
+        new_y = {key:round(point[1][key] + step_size*value, 5) for key, value in self.calc_derivative_at_point(point).items()}
         return (new_x, new_y)
 
     def calc_estimated_points(self, point, step_size, num_steps):
@@ -23,14 +23,16 @@ class EulerEstimator():
         return ans
     
     def plot(self, point, step_size, num_steps):
-        
-        """
-        x_coords = [round(pair[0], 4) for pair in self.calc_estimated_points(point, step_size, num_steps)]
-        y_coords = [round(pair[1], 4) for pair in self.calc_estimated_points(point, step_size, num_steps)]
-        
-        plt.plot(x_coords, y_coords)
-        plt.xlabel('x')
+
+        t = [pair[0] for pair in self.calc_estimated_points(point, step_size, num_steps)]
+        points = self.calc_estimated_points(point, step_size, num_steps)
+
+        for i in range(len(list(self.derivatives.values()))):
+            key = [list(point[1].keys()) for point in points][0][i]
+            arr = [pair[1][key] for pair in points]
+            plt.plot(t, arr)
+
+        plt.xlabel('t')
         plt.ylabel('y')
-        plt.title('Euler estimation')
+        plt.title('Euler Estimation')
         plt.savefig('euler_estimation.png')
-        """
