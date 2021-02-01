@@ -30,9 +30,7 @@ class EulerEstimator():
         for i in range(len(list(self.derivatives.values()))):
             key = [list(point[1].keys()) for point in points][0][i]
             arr = [pair[1][key] for pair in points]
-            plt.plot(t, arr)
+            plt.plot(t, arr, label=key)
 
-        plt.xlabel('t')
-        plt.ylabel('y')
-        plt.title('Euler Estimation')
+        plt.legend()
         plt.savefig('euler_estimation.png')
