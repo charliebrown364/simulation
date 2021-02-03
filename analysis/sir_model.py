@@ -21,7 +21,7 @@ derivatives = {
               }
 
 euler = EulerEstimator(derivatives = derivatives)
-
+e
 initial_values = {'S': 1000, 'I': 1, 'R': 0}
 initial_point = (0, initial_values)
 
